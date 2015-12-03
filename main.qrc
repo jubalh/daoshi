@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/images">
         <file>resources/long.ico</file>
+        <file>resources/folder-color.svg</file>
     </qresource>
 </RCC>
