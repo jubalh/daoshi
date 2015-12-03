@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QIcon icon(":/images/resources/long.ico");
+    this->setWindowIcon(icon);
 }
 
 MainWindow::~MainWindow()

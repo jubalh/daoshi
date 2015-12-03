@@ -23,3 +23,6 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui \
     opendialog.ui
+
+RESOURCES += \
+    main.qrc
