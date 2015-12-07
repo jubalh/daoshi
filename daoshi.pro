@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += widgets gui
+QT       += widgets gui xmlpatterns
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += core
 
@@ -15,11 +15,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     word.cpp \
-    opendialog.cpp
+    opendialog.cpp \
+    lessonloader.cpp \
+    helper.cpp
 
 HEADERS  += mainwindow.h \
     word.h \
-    opendialog.h
+    opendialog.h \
+    lessonloader.h \
+    helper.h
 
 FORMS    += mainwindow.ui \
     opendialog.ui

@@ -3,4 +3,7 @@
         <file>resources/long.ico</file>
         <file>resources/folder-color.svg</file>
     </qresource>
+    <qresource prefix="/schemas">
+        <file>resources/content.xsd</file>
+    </qresource>
 </RCC>
