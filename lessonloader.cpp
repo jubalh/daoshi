@@ -47,6 +47,7 @@ bool LessonLoader::checkLessonStructure()
     QFile schemaFile(":/schemas/resources/content.xsd");
     schemaFile.open(QIODevice::ReadOnly);
     QByteArray schemaStream = schemaFile.readAll();
+    schemaFile.close();
     QXmlSchema schema;
     schema.load(schemaStream);
     if(schema.isValid())
@@ -54,10 +55,13 @@ bool LessonLoader::checkLessonStructure()
     else
     {
         qDebug() << "XML schema is invalid";
+        lesson.close();
         return false;
     }
     QXmlSchemaValidator validator(schema);
-    if(validator.validate(lesson.readAll()))
+    QByteArray ba = lesson.readAll();
+    lesson.close();
+    if(validator.validate(ba))
         qDebug() << "content.xml is valid";
     else
     {
