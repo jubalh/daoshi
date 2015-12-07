@@ -3,13 +3,13 @@
          <xs:element name="lesson">
                <xs:complexType>
                      <xs:sequence>
-                           <xs:element name="word">
+                           <xs:element name="word" maxOccurs="unbounded">
                                  <xs:complexType>
                                        <xs:sequence>
                                              <xs:element name="pictogram" type="xs:string"></xs:element>
                                              <xs:element name="pinyin" type="xs:string"></xs:element>
                                              <xs:element name="translation" type="xs:string"></xs:element>
-                                             <xs:element name="senteces">
+                                             <xs:element name="sentences">
                                                    <xs:complexType>
                                                          <xs:sequence>
                                                                <xs:element name="sentence" maxOccurs="unbounded" type="xs:string"></xs:element>
