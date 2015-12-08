@@ -20,7 +20,7 @@ public:
 
 private slots:
     void on_buttonBox_clicked(QAbstractButton *button);
-    void onLessonLoaded();
+    void on_buttonBox_accepted();
 
 private:
     Ui::OpenDialog *ui;

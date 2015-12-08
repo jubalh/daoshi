@@ -3,6 +3,7 @@
 #include "opendialog.h"
 #include "ui_opendialog.h"
 #include <Qt>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -32,7 +33,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::runOpenLessonDialog()
 {
-    OpenDialog *od = new OpenDialog();
+    OpenDialog *od = new OpenDialog(this);
     od->exec();
 }
 
@@ -44,4 +45,9 @@ void MainWindow::on_actionOpen_Lesson_triggered()
 void MainWindow::on_pushButton_clicked()
 {
     this->runOpenLessonDialog();
+}
+
+void MainWindow::onLessonLoaded(QList<Word> wordList)
+{
+   qDebug() << "Loaded a list containing" << wordList.count() << "words";
 }

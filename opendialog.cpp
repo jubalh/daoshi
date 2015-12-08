@@ -9,6 +9,7 @@ OpenDialog::OpenDialog(QWidget *parent) :
     ui(new Ui::OpenDialog)
 {
     ui->setupUi(this);
+    qRegisterMetaType< QList<Word> >("QList<Word>");
 
     QDir dir(Helper::getLessonsPath());
     QStringList lessons = dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot);
@@ -16,7 +17,7 @@ OpenDialog::OpenDialog(QWidget *parent) :
     ui->listWidget->addItems(lessons);
 
     mLessonLoader = new LessonLoader(this);
-    connect(mLessonLoader, SIGNAL(loaded()), this, SLOT(onLessonLoaded()));
+    connect(mLessonLoader, SIGNAL(loaded(QList<Word>)), this->parent(), SLOT(onLessonLoaded(QList<Word>)));
 }
 
 OpenDialog::~OpenDialog()
@@ -26,6 +27,10 @@ OpenDialog::~OpenDialog()
 
 void OpenDialog::on_buttonBox_clicked(QAbstractButton *button)
 {
+}
+
+void OpenDialog::on_buttonBox_accepted()
+{
     if (this->ui->listWidget->selectedItems().count() > 0)
     {
         QString name = this->ui->listWidget->selectedItems().at(0)->text();
@@ -33,11 +38,4 @@ void OpenDialog::on_buttonBox_clicked(QAbstractButton *button)
         mLessonLoader->setLessonName(name);
         mLessonLoader->start();
     }
-}
-
-void OpenDialog::onLessonLoaded()
-{
-    qDebug() << "lesson loaded";
-    //TODO: act upon status
-    // give lesson class to mainwindow (signal/slot) and display it
 }

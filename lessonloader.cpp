@@ -1,6 +1,5 @@
 #include "lessonloader.h"
 #include "helper.h"
-#include "word.h"
 #include <QDir>
 #include <QFile>
 #include <QDebug>
@@ -26,10 +25,11 @@ void LessonLoader::run()
     if (!bValidLesson)
         qDebug() << "Lesson is not valid";
 
-    this->loadLesson();
+    QPair<QList<Word>, QString> result = this->loadLesson();
+    QList<Word> wordList = result.first;
 
     //TODO: tell 'loaded' about status
-    emit loaded();
+    emit loaded(wordList);
 }
 
 bool LessonLoader::checkLessonStructure()
@@ -76,21 +76,24 @@ bool LessonLoader::checkLessonStructure()
     return true;
 }
 
-void LessonLoader::loadLesson()
+QPair<QList<Word>, QString>  LessonLoader::loadLesson()
 {
     QDomDocument document;
+    QPair<QList<Word>, QString> ret;
 
     QFile lesson(Helper::getContentFilePath(this->mLessonName));
     if (!lesson.open(QIODevice::ReadOnly))
     {
-       qDebug() << "Failed to open" << lesson.fileName();
-        return;
+        QString msg = "Failed to open " + lesson.fileName();
+        qDebug() << msg;
+        ret.second = msg;
     }
 
     if (!document.setContent(&lesson))
     {
-        qDebug() << "Failed to load DOM" << lesson.fileName();
-        return;
+        QString msg = "Failed to load DOM " + lesson.fileName();
+        qDebug() << msg;
+        ret.second = msg;
     }
     lesson.close();
 
@@ -99,7 +102,7 @@ void LessonLoader::loadLesson()
 
     qDebug() << "Total: " << words.count();
 
-    QList<Word*> wordList;
+    QList<Word> wordList;
 
     for(int i=0; i < words.count(); i++)
     {
@@ -122,7 +125,11 @@ void LessonLoader::loadLesson()
             }
         }
 
-        Word *w = new Word(picto, pin, trans, note, sentenceList);
+        Word w(picto, pin, trans, note, sentenceList);
         wordList.append(w);
     }
+
+    ret.first = wordList;
+
+    return ret;
 }

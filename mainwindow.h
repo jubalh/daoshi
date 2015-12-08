@@ -1,7 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "word.h"
 #include <QMainWindow>
+#include <QList>
 
 namespace Ui {
 class MainWindow;
@@ -17,8 +19,8 @@ public:
 
 private slots:
     void on_actionOpen_Lesson_triggered();
-
     void on_pushButton_clicked();
+    void onLessonLoaded(QList<Word> wordList);
 
 private:
     Ui::MainWindow *ui;
