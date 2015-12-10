@@ -72,12 +72,19 @@ void MainWindow::onLessonLoaded(Lesson lesson)
 
    //Word word = wordList.at( qrand() % wordList.count() );
    Word word = this->mLesson.wordList().at(0);
+   this->displayWord(word);
+}
+
+void MainWindow::displayWord(Word word)
+{
+   this->ui->pgOpenLesson->setVisible(false);
+   this->ui->pgDisplayLesson->setVisible(true);
 
    this->ui->lblPictogram->setText(word.getPictogram());
    this->ui->lblPinyin->setText(word.getPinyin());
    this->ui->lblTranslation->setText(word.getTranslation());
-   this->ui->pgOpenLesson->setVisible(false);
-   this->ui->pgDisplayLesson->setVisible(true);
+   this->ui->lblNote->setText(word.getNote());
+   this->ui->teExamples->setText(word.getExampleSentences().join("\n"));
 
    QString pth = this->getPictogramPath(word.getPictogram());
 
@@ -95,6 +102,7 @@ void MainWindow::onLessonLoaded(Lesson lesson)
    movie->setScaledSize(s);
    this->ui->lblPictogram->setMovie(movie);
    movie->start();
+
 }
 
 void MainWindow::on_actionExit_triggered()

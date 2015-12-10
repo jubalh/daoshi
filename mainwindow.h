@@ -29,6 +29,7 @@ private:
     Ui::MainWindow *ui;
     void runOpenLessonDialog(void);
     QString getPictogramPath(QString pictogram);
+    void displayWord(Word word);
 };
 
 #endif // MAINWINDOW_H

@@ -18,7 +18,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="pgOpenLesson">
        <widget class="QWidget" name="">
@@ -140,40 +140,72 @@
        <widget class="QLabel" name="lblTranslation">
         <property name="geometry">
          <rect>
-          <x>50</x>
-          <y>190</y>
+          <x>120</x>
+          <y>210</y>
           <width>68</width>
           <height>20</height>
          </rect>
         </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>translation</string>
         </property>
        </widget>
        <widget class="QLabel" name="lblPictogram">
         <property name="geometry">
          <rect>
-          <x>50</x>
+          <x>120</x>
           <y>10</y>
           <width>130</width>
           <height>130</height>
          </rect>
         </property>
+        <property name="minimumSize">
+         <size>
+          <width>130</width>
+          <height>130</height>
+         </size>
+        </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>pictogram</string>
         </property>
        </widget>
        <widget class="QLabel" name="lblPinyin">
         <property name="geometry">
          <rect>
-          <x>50</x>
-          <y>150</y>
+          <x>120</x>
+          <y>140</y>
+          <width>121</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>transliteration</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lblNote">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>240</y>
           <width>68</width>
           <height>20</height>
          </rect>
         </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>note</string>
+        </property>
+       </widget>
+       <widget class="QTextEdit" name="teExamples">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>260</y>
+          <width>371</width>
+          <height>41</height>
+         </rect>
         </property>
        </widget>
       </widget>
