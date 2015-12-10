@@ -1,5 +1,6 @@
 #include "helper.h"
 #include <QStandardPaths>
+#include <QDir>
 
 QString Helper::getLessonsDirectory()
 {
@@ -14,4 +15,13 @@ QString Helper::getLessonPath(QString lessonName)
 QString Helper::getContentFilePath(QString lessonName)
 {
     return getLessonPath(lessonName) + "/content.xml";
+}
+
+void Helper::createPaths()
+{
+    QDir dir(getLessonsDirectory());
+    if(!dir.exists())
+    {
+        dir.mkpath(getLessonsDirectory());
+    }
 }

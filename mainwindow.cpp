@@ -32,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui->frameOpening->setGeometry(10, 10, this->ui->frameOpening->width(), this->ui->frameOpening->width());
     this->ui->frameLesson->setVisible(false);
 
+    Helper::createPaths();
+
     QTime now = QTime::currentTime();
     qsrand(now.msec());
 }

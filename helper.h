@@ -9,6 +9,7 @@ public:
     static QString getLessonsDirectory();
     static QString getLessonPath(QString lessonName);
     static QString getContentFilePath(QString lessonName);
+    static void createPaths();
 };
 
 #endif // HELPER_H
