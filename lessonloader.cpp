@@ -20,17 +20,33 @@ void LessonLoader::setLessonName(QString name)
 
 void LessonLoader::run()
 {
+    Lesson l;
+
     qDebug() << "lesson name:" << this->mLessonName;
     bool bValidLesson = this->checkLessonStructure();
-    if (!bValidLesson)
-        qDebug() << "Lesson is not valid";
 
-    QPair<QList<Word>, QString> result = this->loadLesson();
-    QList<Word> wordList = result.first;
+    if (bValidLesson)
+    {
+        QPair<QList<Word>, QString> result = this->loadLesson();
+        QList<Word> wordList = result.first;
 
-    //TODO: tell 'loaded' about status
-    Lesson l(this->mLessonName);
-    l.setWordList(wordList);
+        if(result.second.isEmpty())
+        {
+            l.setName(this->mLessonName);
+            l.setWordList(wordList);
+        }
+        else
+        {
+            l.setError(result.second);
+        }
+    }
+    else
+    {
+       QString msg = "Structure of lesson is not valid";
+       qDebug() << msg;
+       l.setError(msg);
+    }
+
     emit loaded(l);
 }
 

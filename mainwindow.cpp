@@ -6,6 +6,7 @@
 #include <Qt>
 #include <QTime>
 #include <QMovie>
+#include <QMessageBox>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -58,6 +59,12 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::onLessonLoaded(Lesson lesson)
 {
+   if (!lesson.error().isEmpty())
+   {
+       QMessageBox::warning(this, "Error", lesson.error());
+       return;
+   }
+
    this->mLesson = lesson;
    qDebug() << "Loaded a list containing" << this->mLesson.wordList().count() << "words";
 
