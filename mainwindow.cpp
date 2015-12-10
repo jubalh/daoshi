@@ -29,8 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui->pushButton->setIconSize(this->ui->pushButton->size());
     this->ui->pushButton->setStyleSheet("QPushButton:pressed{ background-color: transparent; }");
 
-    this->ui->frameOpening->setGeometry(10, 10, this->ui->frameOpening->width(), this->ui->frameOpening->width());
-    this->ui->frameLesson->setVisible(false);
+    this->ui->pgOpenLesson->setVisible(true);
+    this->ui->pgDisplayLesson->setVisible(false);
 
     Helper::createPaths();
 
@@ -73,11 +73,11 @@ void MainWindow::onLessonLoaded(Lesson lesson)
    //Word word = wordList.at( qrand() % wordList.count() );
    Word word = this->mLesson.wordList().at(0);
 
-   this->ui->frameOpening->setVisible(false);
    this->ui->lblPictogram->setText(word.getPictogram());
    this->ui->lblPinyin->setText(word.getPinyin());
    this->ui->lblTranslation->setText(word.getTranslation());
-   this->ui->frameLesson->setVisible(true);
+   this->ui->pgOpenLesson->setVisible(false);
+   this->ui->pgDisplayLesson->setVisible(true);
 
    QString pth = this->getPictogramPath(word.getPictogram());
 
