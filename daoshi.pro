@@ -17,13 +17,15 @@ SOURCES += main.cpp\
     word.cpp \
     opendialog.cpp \
     lessonloader.cpp \
-    helper.cpp
+    helper.cpp \
+    lesson.cpp
 
 HEADERS  += mainwindow.h \
     word.h \
     opendialog.h \
     lessonloader.h \
-    helper.h
+    helper.h \
+    lesson.h
 
 FORMS    += mainwindow.ui \
     opendialog.ui

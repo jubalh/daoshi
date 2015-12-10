@@ -3,30 +3,27 @@
 #include <QDir>
 #include <QDebug>
 #include "helper.h"
+#include "lesson.h"
 
 OpenDialog::OpenDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::OpenDialog)
 {
     ui->setupUi(this);
-    qRegisterMetaType< QList<Word> >("QList<Word>");
+    qRegisterMetaType<Lesson>("Lesson");
 
-    QDir dir(Helper::getLessonsPath());
+    QDir dir(Helper::getLessonsDirectory());
     QStringList lessons = dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot);
 
     ui->listWidget->addItems(lessons);
 
     mLessonLoader = new LessonLoader(this);
-    connect(mLessonLoader, SIGNAL(loaded(QList<Word>)), this->parent(), SLOT(onLessonLoaded(QList<Word>)));
+    connect(mLessonLoader, SIGNAL(loaded(Lesson)), this->parent(), SLOT(onLessonLoaded(Lesson)));
 }
 
 OpenDialog::~OpenDialog()
 {
     delete ui;
-}
-
-void OpenDialog::on_buttonBox_clicked(QAbstractButton *button)
-{
 }
 
 void OpenDialog::on_buttonBox_accepted()

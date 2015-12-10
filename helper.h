@@ -6,7 +6,8 @@
 class Helper
 {
 public:
-    static QString getLessonsPath();
+    static QString getLessonsDirectory();
+    static QString getLessonPath(QString lessonName);
     static QString getContentFilePath(QString lessonName);
 };
 

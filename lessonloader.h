@@ -2,6 +2,7 @@
 #define LESSONLOADER_H
 
 #include "word.h"
+#include "lesson.h"
 #include <QThread>
 
 class LessonLoader : public QThread
@@ -17,7 +18,7 @@ public:
     QPair<QList<Word>, QString> loadLesson();
 
 signals:
-    bool loaded(QList<Word> wordList);
+    bool loaded(Lesson lesson);
 
 public slots:
 

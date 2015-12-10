@@ -29,12 +29,14 @@ void LessonLoader::run()
     QList<Word> wordList = result.first;
 
     //TODO: tell 'loaded' about status
-    emit loaded(wordList);
+    Lesson l(this->mLessonName);
+    l.setWordList(wordList);
+    emit loaded(l);
 }
 
 bool LessonLoader::checkLessonStructure()
 {
-    QString lessonPath = Helper::getLessonsPath() + "/" + this->mLessonName;
+    QString lessonPath = Helper::getLessonsDirectory() + "/" + this->mLessonName;
 
     //check lesson path
     QDir lessonDir(lessonPath);
