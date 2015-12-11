@@ -19,7 +19,8 @@ public:
          QString pinyin,
          QStringList translations,
          QString note,
-         QStringList &exampleSentences);
+         QStringList &exampleSentences,
+         QString audio);
     QString getPictogram() const;
     void setPictogram(const QString &value);
     QString getPinyin() const;

@@ -66,11 +66,12 @@ Word::Word()
 {
 }
 
-Word::Word(QString pictogram, QString pinyin, QStringList translations, QString note, QStringList &exampleSentences)
+Word::Word(QString pictogram, QString pinyin, QStringList translations, QString note, QStringList &exampleSentences, QString audio)
 {
     this->pictogram = pictogram;
     this->pinyin = pinyin;
     this->translations = translations;
     this->note = note;
     this->exampleSentences = exampleSentences;
+    this->audio = audio;
 }

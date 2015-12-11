@@ -120,17 +120,12 @@ Lesson LessonLoader::loadLesson()
         QString picto = wordElement.elementsByTagName("pictogram").at(0).toElement().text();
         QString pin = wordElement.elementsByTagName("pinyin").at(0).toElement().text();
         QString note = wordElement.elementsByTagName("note").at(0).toElement().text();
+        QString audio = wordElement.elementsByTagName("audio").at(0).toElement().text();
 
         QStringList translationList = this->parseXmlIntoStringList(wordElement.elementsByTagName("translations"), "translation");
         QStringList sentenceList = this->parseXmlIntoStringList(wordElement.elementsByTagName("sentences"), "sentence");
 
-        Word w(picto, pin, translationList, note, sentenceList);
-
-        QDomNodeList audios = wordElement.elementsByTagName("audio");
-        if (audios.count() >= 1)
-        {
-            w.setAudio(audios.at(0).toElement().text());
-        }
+        Word w(picto, pin, translationList, note, sentenceList, audio);
 
         wordList.append(w);
     }
