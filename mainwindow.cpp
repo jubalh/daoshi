@@ -178,7 +178,7 @@ bool MainWindow::makeVisible(QWidget *widget)
         QLabel* lbl = (QLabel*)widget;
         if(lbl->text().isEmpty())
             return true;
-    } else if(QString::compare(widget->metaObject()->className(), "QTextEdit") == 0)
+    } else if(QString::compare(widget->metaObject()->className(), "QTextBrowser") == 0)
     {
         QTextBrowser* te = (QTextBrowser*)widget;
         if (te->toPlainText().isEmpty())
