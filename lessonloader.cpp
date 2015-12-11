@@ -135,7 +135,7 @@ QPair<QList<Word>, QString>  LessonLoader::loadLesson()
 
         QStringList sentenceList;
         QDomNodeList sentences = wordElement.elementsByTagName("sentences").at(0).toElement().elementsByTagName("sentence");
-        if(sentences.count() > 1)
+        if(sentences.count() >= 1)
         {
             for(int n=0; n < sentences.count(); n++)
             {
