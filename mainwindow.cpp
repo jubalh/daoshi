@@ -7,7 +7,6 @@
 #include <QTime>
 #include <QMovie>
 #include <QMessageBox>
-#include <QTextEdit>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -43,8 +42,6 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui->pgOpenLesson->setVisible(true);
     this->ui->pgDisplayLesson->setVisible(false);
     this->resize(600, 380);
-
-    this->ui->teExamples->setStyleSheet("QTextEdit{ border: none;}");
 
     Helper::createPaths();
 
@@ -94,13 +91,13 @@ void MainWindow::displayWord(Word word)
    this->ui->lblPinyin->setVisible(false);
    this->ui->lblTranslation->setVisible(false);
    this->ui->lblNote->setVisible(false);
-   this->ui->teExamples->setVisible(false);
+   this->ui->tbExample->setVisible(false);
 
    this->ui->lblPictogram->setText(word.getPictogram());
    this->ui->lblPinyin->setText(word.getPinyin());
    this->ui->lblTranslation->setText(word.getTranslation());
    this->ui->lblNote->setText(word.getNote());
-   this->ui->teExamples->setText(word.getExampleSentences().join("\n"));
+   this->ui->tbExample->setText(word.getExampleSentences().join("\n"));
 
    QString pth = this->getPictogramPath(word.getPictogram());
 
@@ -177,7 +174,7 @@ bool MainWindow::makeVisible(QWidget *widget)
             return true;
     } else if(QString::compare(widget->metaObject()->className(), "QTextEdit") == 0)
     {
-        QTextEdit* te = (QTextEdit*)widget;
+        QTextBrowser* te = (QTextBrowser*)widget;
         if (te->toPlainText().isEmpty())
             return true;
     }
@@ -193,5 +190,5 @@ void MainWindow::on_btnNextDisplay_clicked()
     if(makeVisible(this->ui->lblPinyin))
         if(makeVisible(this->ui->lblTranslation))
             if(makeVisible(this->ui->lblNote))
-                makeVisible(this->ui->teExamples);
+                makeVisible(this->ui->tbExample);
 }
