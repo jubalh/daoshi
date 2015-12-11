@@ -34,16 +34,19 @@ MainWindow::MainWindow(QWidget *parent) :
     dispNextArrow.load(":/images/resources/next-arrow.svg");
     this->ui->btnNextWord->setIcon(dispNextArrow);
     this->ui->btnNextWord->setIconSize(this->ui->btnNextWord->size());
+    this->ui->btnNextWord->setToolTip("Next word");
 
     QPixmap dispDownArrow;
     dispDownArrow.load(":/images/resources/down-arrow.svg");
     this->ui->btnNextDisplay->setIcon(dispDownArrow);
     this->ui->btnNextDisplay->setIconSize(this->ui->btnNextDisplay->size());
+    this->ui->btnNextDisplay->setToolTip("Show next field");
 
     QPixmap dispSpeaker;
     dispSpeaker.load(":images/resources/speaker.svg");
     this->ui->btnSpeaker->setIcon(dispSpeaker);
     this->ui->btnSpeaker->setIconSize(this->ui->btnSpeaker->size());
+    this->ui->btnSpeaker->setToolTip("Play audio");
 
     this->toggleLessonMode(false);
 
@@ -141,10 +144,12 @@ void MainWindow::displayWord(Word word)
    if (audio.isEmpty())
    {
        this->ui->btnSpeaker->setEnabled(false);
+       this->ui->btnSpeaker->setToolTip("No audio available");
    }
    else
    {
        this->ui->btnSpeaker->setEnabled(true);
+       this->ui->btnSpeaker->setToolTip("Play audio");
        QString audioPath = Helper::getLessonPath(this->mLesson.name()) + "/" + audio;
        this->mPlayer.setMedia(QUrl::fromLocalFile(audioPath));
    }
