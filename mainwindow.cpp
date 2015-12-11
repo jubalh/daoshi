@@ -223,3 +223,8 @@ void MainWindow::saveSettings()
    setting.setValue("LastLesson", this->mLesson.name());
    setting.endGroup();
 }
+
+void MainWindow::on_actionAbout_triggered()
+{
+   QMessageBox::about(this, "About", "<b>Daoshi</b><br><br>Daoshi is a vocabulary trainer targetting Chinese and other languages with foreign scripts.");
+}

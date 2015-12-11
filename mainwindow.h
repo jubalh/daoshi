@@ -23,12 +23,10 @@ private slots:
     void on_pushButton_clicked();
     void onLessonLoaded(Lesson lesson);
     void on_actionExit_triggered();
-
     void on_btnNextWord_clicked();
-
     void on_actionClose_Lesson_triggered();
-
     void on_btnNextDisplay_clicked();
+    void on_actionAbout_triggered();
 
 private:
     Lesson mLesson;
