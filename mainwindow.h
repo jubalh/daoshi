@@ -39,6 +39,7 @@ private:
     void displayRandomWord();
     void toggleMode();
     bool makeVisible(QWidget *widget);
+    void saveSettings();
 };
 
 #endif // MAINWINDOW_H

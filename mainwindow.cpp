@@ -7,6 +7,7 @@
 #include <QTime>
 #include <QMovie>
 #include <QMessageBox>
+#include <QSettings>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -95,6 +96,12 @@ void MainWindow::onLessonLoaded(Lesson lesson)
 
    this->toggleMode();
 
+   QSettings setting("jubalh", "daoshi");
+   setting.beginGroup("WindowLesson");
+   QRect position = setting.value("Position").toRect();
+   this->setGeometry(position);
+   setting.endGroup();
+
    this->displayRandomWord();
 }
 
@@ -138,6 +145,7 @@ void MainWindow::displayRandomWord()
 
 void MainWindow::on_actionExit_triggered()
 {
+    this->saveSettings();
     QApplication::quit();
 }
 
@@ -203,4 +211,15 @@ void MainWindow::on_btnNextDisplay_clicked()
         if(makeVisible(this->ui->tbTranslation))
             if(makeVisible(this->ui->tbNote))
                 makeVisible(this->ui->tbExample);
+}
+
+void MainWindow::saveSettings()
+{
+   QSettings setting("jubalh", "daoshi");
+   setting.beginGroup("WindowLesson");
+   setting.setValue("Position", this->geometry());
+   setting.endGroup();
+   setting.beginGroup("Lesson");
+   setting.setValue("LastLesson", this->mLesson.name());
+   setting.endGroup();
 }
