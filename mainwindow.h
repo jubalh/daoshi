@@ -39,7 +39,7 @@ private:
     QString getPictogramPath(QString pictogram);
     void displayWord(Word word);
     void displayRandomWord();
-    void toggleMode();
+    void toggleLessonMode(bool bMakeLessonActive);
     bool makeVisible(QWidget *widget);
     void saveSettings();
 };

@@ -45,9 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui->btnSpeaker->setIcon(dispSpeaker);
     this->ui->btnSpeaker->setIconSize(this->ui->btnSpeaker->size());
 
-    this->ui->pgOpenLesson->setVisible(true);
-    this->ui->pgDisplayLesson->setVisible(false);
-    this->setFixedSize(600, 380);
+    this->toggleLessonMode(false);
 
     QString sTbStyle("QTextBrowser{ background-color: transparent; }");
     this->ui->tbTranslation->setStyleSheet(sTbStyle);
@@ -95,7 +93,7 @@ void MainWindow::onLessonLoaded(Lesson lesson)
                "containing" << this->mLesson.wordList().count() <<
                "words" << "in version " << this->mLesson.version();
 
-   this->toggleMode();
+   this->toggleLessonMode(true);
 
    QSettings setting("jubalh", "daoshi");
    setting.beginGroup("WindowLesson");
@@ -172,25 +170,29 @@ void MainWindow::on_btnNextWord_clicked()
     this->displayRandomWord();
 }
 
-void MainWindow::toggleMode()
+void MainWindow::toggleLessonMode(bool bMakeLessonActive)
 {
-    if (this->ui->pgOpenLesson->isVisible())
+    if (bMakeLessonActive)
     {
+        // show lesson window
         this->ui->pgOpenLesson->setVisible(false);
         this->ui->pgDisplayLesson->setVisible(true);
         this->setFixedSize(740, 640);
+        this->ui->actionClose_Lesson->setEnabled(true);
     }
     else
     {
+        // show open window
         this->ui->pgOpenLesson->setVisible(true);
         this->ui->pgDisplayLesson->setVisible(false);
         this->setFixedSize(600, 380);
+        this->ui->actionClose_Lesson->setEnabled(false);
     }
 }
 
 void MainWindow::on_actionClose_Lesson_triggered()
 {
-    this->toggleMode();
+    this->toggleLessonMode(false);
 }
 
 bool MainWindow::makeVisible(QWidget *widget)
