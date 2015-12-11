@@ -44,7 +44,6 @@ MainWindow::MainWindow(QWidget *parent) :
     dispSpeaker.load(":images/resources/speaker.svg");
     this->ui->btnSpeaker->setIcon(dispSpeaker);
     this->ui->btnSpeaker->setIconSize(this->ui->btnSpeaker->size());
-    this->ui->btnSpeaker->setVisible(false);
 
     this->ui->pgOpenLesson->setVisible(true);
     this->ui->pgDisplayLesson->setVisible(false);
@@ -92,7 +91,9 @@ void MainWindow::onLessonLoaded(Lesson lesson)
    }
 
    this->mLesson = lesson;
-   qDebug() << "Loaded a list containing" << this->mLesson.wordList().count() << "words";
+   qDebug() << "Loaded lesson" << this->mLesson.name() <<
+               "containing" << this->mLesson.wordList().count() <<
+               "words" << "in version " << this->mLesson.version();
 
    this->toggleMode();
 
@@ -134,6 +135,18 @@ void MainWindow::displayWord(Word word)
    movie->setScaledSize(s);
    this->ui->lblPictogram->setMovie(movie);
    movie->start();
+
+   QString audio = word.getAudio();
+   if (audio.isEmpty())
+   {
+       this->ui->btnSpeaker->setEnabled(false);
+   }
+   else
+   {
+       this->ui->btnSpeaker->setEnabled(true);
+       QString audioPath = Helper::getLessonPath(this->mLesson.name()) + "/" + audio;
+       this->mPlayer.setMedia(QUrl::fromLocalFile(audioPath));
+   }
 }
 
 void MainWindow::displayRandomWord()
@@ -227,4 +240,9 @@ void MainWindow::saveSettings()
 void MainWindow::on_actionAbout_triggered()
 {
    QMessageBox::about(this, "About", "<b>Daoshi</b><br><br>Daoshi is a vocabulary trainer targetting Chinese and other languages with foreign scripts.");
+}
+
+void MainWindow::on_btnSpeaker_clicked()
+{
+   this->mPlayer.play();
 }

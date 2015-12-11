@@ -10,6 +10,7 @@ class Lesson
 private:
     QString mName;
     QString mError;
+    QString mVersion;
     QList<Word> mWordList;
 public:
     Lesson();
@@ -20,6 +21,8 @@ public:
     QString name() const;
     QString error() const;
     void setError(const QString &error);
+    QString version() const;
+    void setVersion(const QString &version);
 };
 
 #endif // LESSON_H

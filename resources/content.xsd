@@ -18,6 +18,7 @@
                                                    </xs:complexType>
                                              </xs:element>
                                              <xs:element name="note" minOccurs="0" type="xs:string"></xs:element>
+                                             <xs:element name="audio" minOccurs="0" type="xs:string"></xs:element>
                                        </xs:sequence>
                                  </xs:complexType>
                            </xs:element>

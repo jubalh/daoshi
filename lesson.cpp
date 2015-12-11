@@ -16,6 +16,16 @@ void Lesson::setError(const QString &error)
     mError = error;
 }
 
+QString Lesson::version() const
+{
+    return mVersion;
+}
+
+void Lesson::setVersion(const QString &version)
+{
+    mVersion = version;
+}
+
 Lesson::Lesson()
 {
 }

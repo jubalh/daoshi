@@ -20,34 +20,24 @@ void LessonLoader::setLessonName(QString name)
 
 void LessonLoader::run()
 {
-    Lesson l;
+    Lesson result;
 
     qDebug() << "lesson name:" << this->mLessonName;
     bool bValidLesson = this->checkLessonStructure();
 
     if (bValidLesson)
     {
-        QPair<QList<Word>, QString> result = this->loadLesson();
-        QList<Word> wordList = result.first;
-
-        if(result.second.isEmpty())
-        {
-            l.setName(this->mLessonName);
-            l.setWordList(wordList);
-        }
-        else
-        {
-            l.setError(result.second);
-        }
+        result = this->loadLesson();
+        result.setName(this->mLessonName);
     }
     else
     {
        QString msg = "Structure of lesson is not valid";
        qDebug() << msg;
-       l.setError(msg);
+       result.setError(msg);
     }
 
-    emit loaded(l);
+    emit loaded(result);
 }
 
 bool LessonLoader::checkLessonStructure()
@@ -94,26 +84,26 @@ bool LessonLoader::checkLessonStructure()
     return true;
 }
 
-QPair<QList<Word>, QString>  LessonLoader::loadLesson()
+Lesson LessonLoader::loadLesson()
 {
     QDomDocument document;
-    QPair<QList<Word>, QString> ret;
+    Lesson retLesson;
+    QString msg;
 
-    QFile lesson(Helper::getContentFilePath(this->mLessonName));
-    if (!lesson.open(QIODevice::ReadOnly))
+    QFile lessonFile(Helper::getContentFilePath(this->mLessonName));
+    if (!lessonFile.open(QIODevice::ReadOnly))
     {
-        QString msg = "Failed to open " + lesson.fileName();
+        msg = "Failed to open " + lessonFile.fileName();
         qDebug() << msg;
-        ret.second = msg;
     }
 
-    if (!document.setContent(&lesson))
+    if (!document.setContent(&lessonFile))
     {
-        QString msg = "Failed to load DOM " + lesson.fileName();
+        msg = "Failed to load DOM " + lessonFile.fileName();
         qDebug() << msg;
-        ret.second = msg;
     }
-    lesson.close();
+    lessonFile.close();
+    retLesson.setError(msg);
 
     QDomElement root = document.firstChildElement();
     QDomNodeList words = root.elementsByTagName("word");
@@ -133,6 +123,7 @@ QPair<QList<Word>, QString>  LessonLoader::loadLesson()
         QString trans = wordElement.elementsByTagName("translation").at(0).toElement().text();
         QString note = wordElement.elementsByTagName("note").at(0).toElement().text();
 
+
         QStringList sentenceList;
         QDomNodeList sentences = wordElement.elementsByTagName("sentences").at(0).toElement().elementsByTagName("sentence");
         if(sentences.count() >= 1)
@@ -144,10 +135,20 @@ QPair<QList<Word>, QString>  LessonLoader::loadLesson()
         }
 
         Word w(picto, pin, trans, note, sentenceList);
+
+        QDomNodeList audios = wordElement.elementsByTagName("audio");
+        if (audios.count() >= 1)
+        {
+            w.setAudio(audios.at(0).toElement().text());
+        }
+
         wordList.append(w);
     }
 
-    ret.first = wordList;
+    retLesson.setWordList(wordList);
 
-    return ret;
+    QDomNodeList versionNL = root.elementsByTagName("version");
+    retLesson.setVersion(versionNL.at(0).toElement().text());
+
+    return retLesson;
 }

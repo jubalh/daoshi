@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += widgets gui xmlpatterns xml
+QT       += widgets gui xmlpatterns xml multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += core
 

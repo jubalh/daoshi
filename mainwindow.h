@@ -5,6 +5,7 @@
 #include "lesson.h"
 #include <QMainWindow>
 #include <QList>
+#include <QMediaPlayer>
 
 namespace Ui {
 class MainWindow;
@@ -28,8 +29,11 @@ private slots:
     void on_btnNextDisplay_clicked();
     void on_actionAbout_triggered();
 
+    void on_btnSpeaker_clicked();
+
 private:
     Lesson mLesson;
+    QMediaPlayer mPlayer;
     Ui::MainWindow *ui;
     void runOpenLessonDialog(void);
     QString getPictogramPath(QString pictogram);

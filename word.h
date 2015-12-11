@@ -12,6 +12,7 @@ private:
     QString translation;
     QStringList exampleSentences;
     QString note;
+    QString audio;
 public:
     Word();
     Word(QString pictogram,
@@ -29,6 +30,8 @@ public:
     void setExampleSentences(const QStringList &value);
     QString getNote() const;
     void setNote(const QString &value);
+    QString getAudio() const;
+    void setAudio(const QString &value);
 };
 
 #endif // WORD_H

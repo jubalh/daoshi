@@ -15,7 +15,7 @@ public:
     explicit LessonLoader(QObject *parent = 0);
     void run();
     void setLessonName(QString name);
-    QPair<QList<Word>, QString> loadLesson();
+    Lesson loadLesson();
 
 signals:
     bool loaded(Lesson lesson);

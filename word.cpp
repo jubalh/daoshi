@@ -51,6 +51,16 @@ void Word::setNote(const QString &value)
     note = value;
 }
 
+
+QString Word::getAudio() const
+{
+    return audio;
+}
+
+void Word::setAudio(const QString &value)
+{
+    audio = value;
+}
 Word::Word()
 {
 }
