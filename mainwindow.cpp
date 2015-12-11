@@ -47,7 +47,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->ui->pgOpenLesson->setVisible(true);
     this->ui->pgDisplayLesson->setVisible(false);
-    this->resize(600, 380);
+    this->setFixedSize(600, 380);
+
+    QString sTbStyle("QTextBrowser{ background-color: transparent; }");
+    this->ui->tbTranslation->setStyleSheet(sTbStyle);
+    this->ui->tbNote->setStyleSheet(sTbStyle);
+    this->ui->tbExample->setStyleSheet(sTbStyle);
+    this->ui->tbTransliteration->setStyleSheet(sTbStyle);
 
     Helper::createPaths();
 
@@ -94,15 +100,15 @@ void MainWindow::onLessonLoaded(Lesson lesson)
 
 void MainWindow::displayWord(Word word)
 {
-   this->ui->lblPinyin->setVisible(false);
-   this->ui->lblTranslation->setVisible(false);
-   this->ui->lblNote->setVisible(false);
+   this->ui->tbTransliteration->setVisible(false);
+   this->ui->tbTranslation->setVisible(false);
+   this->ui->tbNote->setVisible(false);
    this->ui->tbExample->setVisible(false);
 
    this->ui->lblPictogram->setText(word.getPictogram());
-   this->ui->lblPinyin->setText(word.getPinyin());
-   this->ui->lblTranslation->setText(word.getTranslation());
-   this->ui->lblNote->setText(word.getNote());
+   this->ui->tbTransliteration->setText(word.getPinyin());
+   this->ui->tbTranslation->setText(word.getTranslation());
+   this->ui->tbNote->setText(word.getNote());
    this->ui->tbExample->setText(word.getExampleSentences().join("\n"));
 
    QString pth = this->getPictogramPath(word.getPictogram());
@@ -151,13 +157,13 @@ void MainWindow::toggleMode()
     {
         this->ui->pgOpenLesson->setVisible(false);
         this->ui->pgDisplayLesson->setVisible(true);
-        this->resize(740, 640);
+        this->setFixedSize(740, 640);
     }
     else
     {
         this->ui->pgOpenLesson->setVisible(true);
         this->ui->pgDisplayLesson->setVisible(false);
-        this->resize(600, 380);
+        this->setFixedSize(600, 380);
     }
 }
 
@@ -168,7 +174,7 @@ void MainWindow::on_actionClose_Lesson_triggered()
 
 bool MainWindow::makeVisible(QWidget *widget)
 {
-    // already visible, skit this on
+    // already visible, skip this on
     if(widget->isVisible())
         return true;
 
@@ -193,8 +199,8 @@ bool MainWindow::makeVisible(QWidget *widget)
 void MainWindow::on_btnNextDisplay_clicked()
 {
     // test which widget is visible and make the next one visible
-    if(makeVisible(this->ui->lblPinyin))
-        if(makeVisible(this->ui->lblTranslation))
-            if(makeVisible(this->ui->lblNote))
+    if(makeVisible(this->ui->tbTransliteration))
+        if(makeVisible(this->ui->tbTranslation))
+            if(makeVisible(this->ui->tbNote))
                 makeVisible(this->ui->tbExample);
 }
