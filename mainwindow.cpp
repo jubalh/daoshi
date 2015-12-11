@@ -39,6 +39,12 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui->btnNextDisplay->setIcon(dispDownArrow);
     this->ui->btnNextDisplay->setIconSize(this->ui->btnNextDisplay->size());
 
+    QPixmap dispSpeaker;
+    dispSpeaker.load(":images/resources/speaker.svg");
+    this->ui->btnSpeaker->setIcon(dispSpeaker);
+    this->ui->btnSpeaker->setIconSize(this->ui->btnSpeaker->size());
+    this->ui->btnSpeaker->setVisible(false);
+
     this->ui->pgOpenLesson->setVisible(true);
     this->ui->pgDisplayLesson->setVisible(false);
     this->resize(600, 380);

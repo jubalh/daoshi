@@ -4,6 +4,7 @@
         <file>resources/folder-color.svg</file>
         <file>resources/next-arrow.svg</file>
         <file>resources/down-arrow.svg</file>
+        <file>resources/speaker.svg</file>
     </qresource>
     <qresource prefix="/schemas">
         <file>resources/content.xsd</file>
