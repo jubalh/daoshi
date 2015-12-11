@@ -25,3 +25,22 @@ void Helper::createPaths()
         dir.mkpath(getLessonsDirectory());
     }
 }
+
+QString Helper::stringListToHtml(const QStringList &list)
+{
+   QString sHtml;
+
+   if(list.count() > 1)
+   {
+       sHtml = "<ul>";
+       for(int i=0; i < list.count(); i++)
+       {
+           sHtml = sHtml + "<li>" + list.at(i) + "</li>";
+       }
+       sHtml += "</ul>";
+   }
+   else
+       sHtml = list.join("");
+
+   return sHtml;
+}

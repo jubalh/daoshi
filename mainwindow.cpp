@@ -115,7 +115,8 @@ void MainWindow::displayWord(Word word)
    this->ui->tbTransliteration->setText(word.getPinyin());
    this->ui->tbTranslation->setText(word.getTranslation());
    this->ui->tbNote->setText(word.getNote());
-   this->ui->tbExample->setText(word.getExampleSentences().join("\n"));
+
+   this->ui->tbExample->setHtml(  Helper::stringListToHtml(word.getExampleSentences()) );
 
    QString pth = this->getPictogramPath(word.getPictogram());
 
