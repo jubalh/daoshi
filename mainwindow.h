@@ -24,12 +24,18 @@ private slots:
     void onLessonLoaded(Lesson lesson);
     void on_actionExit_triggered();
 
+    void on_btnNextWord_clicked();
+
+    void on_actionClose_Lesson_triggered();
+
 private:
     Lesson mLesson;
     Ui::MainWindow *ui;
     void runOpenLessonDialog(void);
     QString getPictogramPath(QString pictogram);
     void displayWord(Word word);
+    void displayRandomWord();
+    void toggleMode();
 };
 
 #endif // MAINWINDOW_H

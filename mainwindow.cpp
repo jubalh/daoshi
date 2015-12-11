@@ -29,8 +29,16 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui->pushButton->setIconSize(this->ui->pushButton->size());
     this->ui->pushButton->setStyleSheet("QPushButton:pressed{ background-color: transparent; }");
 
+    QPixmap dispArrow;
+    dispArrow.load(":/images/resources/next-arrow.svg");
+    this->ui->btnNextWord->setIcon(dispArrow);
+    this->ui->btnNextWord->setIconSize(this->ui->btnNextWord->size());
+
     this->ui->pgOpenLesson->setVisible(true);
     this->ui->pgDisplayLesson->setVisible(false);
+    this->resize(600, 380);
+
+    this->ui->teExamples->setStyleSheet("QTextEdit{ border: none;}");
 
     Helper::createPaths();
 
@@ -70,16 +78,13 @@ void MainWindow::onLessonLoaded(Lesson lesson)
    this->mLesson = lesson;
    qDebug() << "Loaded a list containing" << this->mLesson.wordList().count() << "words";
 
-   //Word word = wordList.at( qrand() % wordList.count() );
-   Word word = this->mLesson.wordList().at(0);
-   this->displayWord(word);
+   this->toggleMode();
+
+   this->displayRandomWord();
 }
 
 void MainWindow::displayWord(Word word)
 {
-   this->ui->pgOpenLesson->setVisible(false);
-   this->ui->pgDisplayLesson->setVisible(true);
-
    this->ui->lblPictogram->setText(word.getPictogram());
    this->ui->lblPinyin->setText(word.getPinyin());
    this->ui->lblTranslation->setText(word.getTranslation());
@@ -102,7 +107,13 @@ void MainWindow::displayWord(Word word)
    movie->setScaledSize(s);
    this->ui->lblPictogram->setMovie(movie);
    movie->start();
+}
 
+void MainWindow::displayRandomWord()
+{
+   Word word = this->mLesson.wordList().at(qrand() % this->mLesson.wordList().count());
+   //Word word = this->mLesson.wordList().at(0);
+   this->displayWord(word);
 }
 
 void MainWindow::on_actionExit_triggered()
@@ -113,4 +124,30 @@ void MainWindow::on_actionExit_triggered()
 QString MainWindow::getPictogramPath(QString pictogram)
 {
    return Helper::getLessonPath(this->mLesson.name()) + "/" + pictogram + ".gif";
+}
+
+void MainWindow::on_btnNextWord_clicked()
+{
+    this->displayRandomWord();
+}
+
+void MainWindow::toggleMode()
+{
+    if (this->ui->pgOpenLesson->isVisible())
+    {
+        this->ui->pgOpenLesson->setVisible(false);
+        this->ui->pgDisplayLesson->setVisible(true);
+        this->resize(740, 640);
+    }
+    else
+    {
+        this->ui->pgOpenLesson->setVisible(true);
+        this->ui->pgDisplayLesson->setVisible(false);
+        this->resize(600, 380);
+    }
+}
+
+void MainWindow::on_actionClose_Lesson_triggered()
+{
+    this->toggleMode();
 }

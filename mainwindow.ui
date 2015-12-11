@@ -21,7 +21,7 @@
        <number>1</number>
       </property>
       <widget class="QWidget" name="pgOpenLesson">
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -208,6 +208,19 @@
          </rect>
         </property>
        </widget>
+       <widget class="QPushButton" name="btnNextWord">
+        <property name="geometry">
+         <rect>
+          <x>460</x>
+          <y>30</y>
+          <width>100</width>
+          <height>70</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
       </widget>
      </widget>
     </item>
@@ -227,6 +240,7 @@
      <string>File</string>
     </property>
     <addaction name="actionOpen_Lesson"/>
+    <addaction name="actionClose_Lesson"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
@@ -240,6 +254,11 @@
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionClose_Lesson">
+   <property name="text">
+    <string>Close Lesson</string>
    </property>
   </action>
  </widget>
