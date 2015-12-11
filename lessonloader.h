@@ -4,6 +4,7 @@
 #include "word.h"
 #include "lesson.h"
 #include <QThread>
+#include <QDomDocument>
 
 class LessonLoader : public QThread
 {
@@ -11,6 +12,7 @@ class LessonLoader : public QThread
 private:
     bool checkLessonStructure();
     QString mLessonName;
+    QStringList parseXmlIntoStringList(QDomNodeList xmlList, QString singleTagName);
 public:
     explicit LessonLoader(QObject *parent = 0);
     void run();

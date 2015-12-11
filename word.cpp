@@ -21,16 +21,6 @@ void Word::setPinyin(const QString &value)
     pinyin = value;
 }
 
-QString Word::getTranslation() const
-{
-    return translation;
-}
-
-void Word::setTranslation(const QString &value)
-{
-    translation = value;
-}
-
 QStringList Word::getExampleSentences() const
 {
     return exampleSentences;
@@ -61,15 +51,26 @@ void Word::setAudio(const QString &value)
 {
     audio = value;
 }
+
+QStringList Word::getTranslations() const
+{
+    return translations;
+}
+
+void Word::setTranslations(const QStringList &value)
+{
+    translations = value;
+}
+
 Word::Word()
 {
 }
 
-Word::Word(QString pictogram, QString pinyin, QString translation, QString note, QStringList &exampleSentences)
+Word::Word(QString pictogram, QString pinyin, QStringList translations, QString note, QStringList &exampleSentences)
 {
     this->pictogram = pictogram;
     this->pinyin = pinyin;
-    this->translation = translation;
+    this->translations = translations;
     this->note = note;
     this->exampleSentences = exampleSentences;
 }

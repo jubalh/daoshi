@@ -6,7 +6,6 @@
 #include <QByteArray>
 #include <QXmlSchemaValidator>
 #include <QXmlSchema>
-#include <QDomDocument>
 
 LessonLoader::LessonLoader(QObject *parent) :
     QThread(parent)
@@ -120,21 +119,12 @@ Lesson LessonLoader::loadLesson()
 
         QString picto = wordElement.elementsByTagName("pictogram").at(0).toElement().text();
         QString pin = wordElement.elementsByTagName("pinyin").at(0).toElement().text();
-        QString trans = wordElement.elementsByTagName("translation").at(0).toElement().text();
         QString note = wordElement.elementsByTagName("note").at(0).toElement().text();
 
+        QStringList translationList = this->parseXmlIntoStringList(wordElement.elementsByTagName("translations"), "translation");
+        QStringList sentenceList = this->parseXmlIntoStringList(wordElement.elementsByTagName("sentences"), "sentence");
 
-        QStringList sentenceList;
-        QDomNodeList sentences = wordElement.elementsByTagName("sentences").at(0).toElement().elementsByTagName("sentence");
-        if(sentences.count() >= 1)
-        {
-            for(int n=0; n < sentences.count(); n++)
-            {
-                sentenceList.append(sentences.at(n).toElement().text());
-            }
-        }
-
-        Word w(picto, pin, trans, note, sentenceList);
+        Word w(picto, pin, translationList, note, sentenceList);
 
         QDomNodeList audios = wordElement.elementsByTagName("audio");
         if (audios.count() >= 1)
@@ -151,4 +141,19 @@ Lesson LessonLoader::loadLesson()
     retLesson.setVersion(versionNL.at(0).toElement().text());
 
     return retLesson;
+}
+
+QStringList LessonLoader::parseXmlIntoStringList(QDomNodeList xmlList, QString singleTagName)
+{
+    QStringList stringList;
+    QDomNodeList nodeList = xmlList.at(0).toElement().elementsByTagName(singleTagName);
+    if(nodeList.count() >= 1)
+    {
+        for(int n=0; n<nodeList.count(); n++)
+        {
+            stringList.append(nodeList.at(n).toElement().text());
+        }
+    }
+
+    return stringList;
 }
