@@ -7,6 +7,7 @@
 #include <QTime>
 #include <QMovie>
 #include <QMessageBox>
+#include <QTextEdit>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -29,10 +30,15 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui->pushButton->setIconSize(this->ui->pushButton->size());
     this->ui->pushButton->setStyleSheet("QPushButton:pressed{ background-color: transparent; }");
 
-    QPixmap dispArrow;
-    dispArrow.load(":/images/resources/next-arrow.svg");
-    this->ui->btnNextWord->setIcon(dispArrow);
+    QPixmap dispNextArrow;
+    dispNextArrow.load(":/images/resources/next-arrow.svg");
+    this->ui->btnNextWord->setIcon(dispNextArrow);
     this->ui->btnNextWord->setIconSize(this->ui->btnNextWord->size());
+
+    QPixmap dispDownArrow;
+    dispDownArrow.load(":/images/resources/down-arrow.svg");
+    this->ui->btnNextDisplay->setIcon(dispDownArrow);
+    this->ui->btnNextDisplay->setIconSize(this->ui->btnNextDisplay->size());
 
     this->ui->pgOpenLesson->setVisible(true);
     this->ui->pgDisplayLesson->setVisible(false);
@@ -85,6 +91,11 @@ void MainWindow::onLessonLoaded(Lesson lesson)
 
 void MainWindow::displayWord(Word word)
 {
+   this->ui->lblPinyin->setVisible(false);
+   this->ui->lblTranslation->setVisible(false);
+   this->ui->lblNote->setVisible(false);
+   this->ui->teExamples->setVisible(false);
+
    this->ui->lblPictogram->setText(word.getPictogram());
    this->ui->lblPinyin->setText(word.getPinyin());
    this->ui->lblTranslation->setText(word.getTranslation());
@@ -150,4 +161,37 @@ void MainWindow::toggleMode()
 void MainWindow::on_actionClose_Lesson_triggered()
 {
     this->toggleMode();
+}
+
+bool MainWindow::makeVisible(QWidget *widget)
+{
+    // already visible, skit this on
+    if(widget->isVisible())
+        return true;
+
+    // wdget is empty, skip this one
+    if(QString::compare(widget->metaObject()->className(), "QLabel") == 0)
+    {
+        QLabel* lbl = (QLabel*)widget;
+        if(lbl->text().isEmpty())
+            return true;
+    } else if(QString::compare(widget->metaObject()->className(), "QTextEdit") == 0)
+    {
+        QTextEdit* te = (QTextEdit*)widget;
+        if (te->toPlainText().isEmpty())
+            return true;
+    }
+
+    // set visible
+    widget->setVisible(true);
+    return false;
+}
+
+void MainWindow::on_btnNextDisplay_clicked()
+{
+    // test which widget is visible and make the next one visible
+    if(makeVisible(this->ui->lblPinyin))
+        if(makeVisible(this->ui->lblTranslation))
+            if(makeVisible(this->ui->lblNote))
+                makeVisible(this->ui->teExamples);
 }

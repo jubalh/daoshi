@@ -28,6 +28,8 @@ private slots:
 
     void on_actionClose_Lesson_triggered();
 
+    void on_btnNextDisplay_clicked();
+
 private:
     Lesson mLesson;
     Ui::MainWindow *ui;
@@ -36,6 +38,7 @@ private:
     void displayWord(Word word);
     void displayRandomWord();
     void toggleMode();
+    bool makeVisible(QWidget *widget);
 };
 
 #endif // MAINWINDOW_H

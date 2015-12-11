@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>380</height>
+    <width>798</width>
+    <height>549</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -140,9 +140,9 @@
        <widget class="QLabel" name="lblTranslation">
         <property name="geometry">
          <rect>
-          <x>120</x>
-          <y>210</y>
-          <width>68</width>
+          <x>150</x>
+          <y>220</y>
+          <width>361</width>
           <height>20</height>
          </rect>
         </property>
@@ -153,8 +153,8 @@
        <widget class="QLabel" name="lblPictogram">
         <property name="geometry">
          <rect>
-          <x>120</x>
-          <y>10</y>
+          <x>150</x>
+          <y>20</y>
           <width>130</width>
           <height>130</height>
          </rect>
@@ -172,8 +172,8 @@
        <widget class="QLabel" name="lblPinyin">
         <property name="geometry">
          <rect>
-          <x>120</x>
-          <y>140</y>
+          <x>150</x>
+          <y>150</y>
           <width>121</width>
           <height>20</height>
          </rect>
@@ -185,10 +185,10 @@
        <widget class="QLabel" name="lblNote">
         <property name="geometry">
          <rect>
-          <x>120</x>
-          <y>240</y>
-          <width>68</width>
-          <height>20</height>
+          <x>150</x>
+          <y>250</y>
+          <width>371</width>
+          <height>51</height>
          </rect>
         </property>
         <property name="text">
@@ -201,20 +201,33 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>120</x>
-          <y>260</y>
+          <x>150</x>
+          <y>320</y>
           <width>371</width>
-          <height>41</height>
+          <height>91</height>
          </rect>
         </property>
        </widget>
        <widget class="QPushButton" name="btnNextWord">
         <property name="geometry">
          <rect>
-          <x>460</x>
-          <y>30</y>
+          <x>580</x>
+          <y>40</y>
           <width>100</width>
           <height>70</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnNextDisplay">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>40</y>
+          <width>104</width>
+          <height>61</height>
          </rect>
         </property>
         <property name="text">
@@ -231,7 +244,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>798</width>
      <height>26</height>
     </rect>
    </property>
