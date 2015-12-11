@@ -171,6 +171,8 @@ QString MainWindow::getPictogramPath(QString pictogram)
 void MainWindow::on_btnNextWord_clicked()
 {
     this->displayRandomWord();
+    if(this->mPlayer.state() == QMediaPlayer::PlayingState)
+        this->mPlayer.stop();
 }
 
 void MainWindow::toggleLessonMode(bool bMakeLessonActive)
