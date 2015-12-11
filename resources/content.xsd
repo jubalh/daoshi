@@ -9,14 +9,14 @@
                                              <xs:element name="pictogram" type="xs:string"></xs:element>
                                              <xs:element name="pinyin" type="xs:string"></xs:element>
                                              <xs:element name="translation" type="xs:string"></xs:element>
-                                             <xs:element name="sentences">
+                                             <xs:element name="sentences" minOccurs="0">
                                                    <xs:complexType>
                                                          <xs:sequence>
                                                                <xs:element name="sentence" maxOccurs="unbounded" type="xs:string"></xs:element>
                                                          </xs:sequence>
                                                    </xs:complexType>
                                              </xs:element>
-                                             <xs:element name="note" type="xs:string"></xs:element>
+                                             <xs:element name="note" minOccurs="0" type="xs:string"></xs:element>
                                        </xs:sequence>
                                  </xs:complexType>
                            </xs:element>
