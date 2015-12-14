@@ -11,8 +11,12 @@ You then can learn them but there is not yet a mode for actual review.
 The foreign character gets displayed, upon clicking you can see these informations: the transliteration, the translation, a note and usage examples.
 You can also listen to the pronunciation if the lesson creator added an audio file.
 
+# Preview #
+There is a short [video on vimeo](https://vimeo.com/148845757) showing the capabilities so far.
+
 # Documentation #
 Please see the doc/ folder.
 
 # Dependencies #
 * Qt5
+
