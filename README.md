@@ -18,5 +18,5 @@ There is a short [video on vimeo](https://vimeo.com/148845757) showing the capab
 Please see the doc/ folder.
 
 # Dependencies #
-* Qt5
+* Qt5 (at least version 5.4)
 

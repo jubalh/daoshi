@@ -4,6 +4,14 @@
 #
 #-------------------------------------------------
 
+lessThan(QT_MAJOR_VERSION, 5) {
+  error("Requires at least Qt 5.4.")
+} else {
+  if(equals(QT_MAJOR_VERSION, 5)){
+    lessThan(QT_MINOR_VERSION, 4): error("Requires at least Qt 5.4")
+  }
+}
+
 QT       += widgets gui xmlpatterns xml multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += core
