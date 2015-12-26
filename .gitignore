@@ -1,2 +1,10 @@
 *.user
 *.autosave
+*.moc
+*.o
+daoshi
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+Makefile*
+*build-*
