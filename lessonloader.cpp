@@ -6,6 +6,63 @@
 #include <QByteArray>
 #include <QXmlSchemaValidator>
 #include <QXmlSchema>
+#include <QXmlDefaultHandler>
+#include <QXmlSimpleReader>
+#include <QXmlInputSource>
+#include <QStack>
+
+class LessonXMLHandler : public QXmlDefaultHandler {
+public:
+   LessonXMLHandler(Lesson &lesson) : QXmlDefaultHandler(), lesson(lesson) {
+   }
+
+   virtual ~LessonXMLHandler() {}
+
+   bool startElement(const QString &namespaceURI, const QString &localName, const QString &qName, const QXmlAttributes &atts) override {
+      current_elements.push(localName);
+      qDebug() << "startElement" << localName;
+      if (current_elements.top() == "word")
+         currentWord = Word();
+      current_text.push(QString());
+      return true;
+   }
+
+   bool characters(const QString &ch) override {
+      current_text.top().append(ch);
+      return true;
+   }
+
+   bool endElement(const QString &namespaceURI, const QString &localName, const QString &qName) override {
+      qDebug() << "endElement" << localName;
+      if (current_elements.top() != localName)
+         return false;
+
+      if (current_elements.top() == "pictogram")
+         currentWord.setPictogram(current_text.top());
+      else  if (current_elements.top() == "pinyin")
+         currentWord.setPinyin(current_text.top());
+      else  if (current_elements.top() == "translation")
+         currentWord.appendTranslation(current_text.top());
+      else  if (current_elements.top() == "sentence")
+         currentWord.appendExampleSentence(current_text.top());
+      else  if (current_elements.top() == "note")
+         currentWord.setNote(current_text.top());
+      else if (current_elements.top() == "version")
+         lesson.setVersion(current_text.top());
+      else  if (current_elements.top() == "word")
+         lesson.appendWordList(currentWord);
+
+      current_elements.pop();
+      current_text.pop();
+      return true;
+   }
+
+private:
+   Word currentWord;
+   Lesson &lesson;
+   QStack<QString> current_elements;
+   QStack<QString> current_text;
+};
 
 LessonLoader::LessonLoader(QObject *parent) :
     QThread(parent)
@@ -85,56 +142,23 @@ bool LessonLoader::checkLessonStructure()
 
 Lesson LessonLoader::loadLesson()
 {
-    QDomDocument document;
-    Lesson retLesson;
-    QString msg;
-
     QFile lessonFile(Helper::getContentFilePath(this->mLessonName));
     if (!lessonFile.open(QIODevice::ReadOnly))
     {
-        msg = "Failed to open " + lessonFile.fileName();
-        qDebug() << msg;
+        "Failed to open " + lessonFile.fileName();
+        qDebug() << "Failed to open " << lessonFile.fileName();
     }
 
-    if (!document.setContent(&lessonFile))
-    {
-        msg = "Failed to load DOM " + lessonFile.fileName();
-        qDebug() << msg;
-    }
-    lessonFile.close();
-    retLesson.setError(msg);
+    QXmlInputSource *source = new QXmlInputSource(&lessonFile);
+    Lesson retLesson;
+    LessonXMLHandler handler(retLesson);
+    QXmlSimpleReader reader;
+    reader.setContentHandler(&handler);
+    reader.setErrorHandler(&handler);
+    if (!reader.parse(source))
+       retLesson.setError("Error while parsing");
 
-    QDomElement root = document.firstChildElement();
-    QDomNodeList words = root.elementsByTagName("word");
-
-    qDebug() << "Total: " << words.count();
-
-    QList<Word> wordList;
-
-    for(int i=0; i < words.count(); i++)
-    {
-        QDomNode wordNode = words.at(i);
-
-        QDomElement wordElement = wordNode.toElement();
-
-        QString picto = wordElement.elementsByTagName("pictogram").at(0).toElement().text();
-        QString pin = wordElement.elementsByTagName("pinyin").at(0).toElement().text();
-        QString note = wordElement.elementsByTagName("note").at(0).toElement().text();
-        QString audio = wordElement.elementsByTagName("audio").at(0).toElement().text();
-
-        QStringList translationList = this->parseXmlIntoStringList(wordElement.elementsByTagName("translations"), "translation");
-        QStringList sentenceList = this->parseXmlIntoStringList(wordElement.elementsByTagName("sentences"), "sentence");
-
-        Word w(picto, pin, translationList, note, sentenceList, audio);
-
-        wordList.append(w);
-    }
-
-    retLesson.setWordList(wordList);
-
-    QDomNodeList versionNL = root.elementsByTagName("version");
-    retLesson.setVersion(versionNL.at(0).toElement().text());
-
+    qDebug() << retLesson.wordList().length();
     return retLesson;
 }
 

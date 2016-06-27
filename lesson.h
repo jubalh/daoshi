@@ -15,8 +15,9 @@ private:
 public:
     Lesson();
     Lesson(QString name);
-    QList<Word> wordList() const;
+    const QList<Word>& wordList() const;
     void setWordList(const QList<Word> &wordList);
+    void appendWordList(const Word &word) { mWordList.append(word); }
     void setName(const QString name);
     QString name() const;
     QString error() const;

@@ -35,7 +35,7 @@ Lesson::Lesson(QString name)
     this->mName = name;
 }
 
-QList<Word> Lesson::wordList() const
+const QList<Word>& Lesson::wordList() const
 {
     return mWordList;
 }

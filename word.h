@@ -27,12 +27,14 @@ public:
     void setPinyin(const QString &value);
     QStringList getExampleSentences() const;
     void setExampleSentences(const QStringList &value);
+    void appendExampleSentence(const QString &value);
     QString getNote() const;
     void setNote(const QString &value);
     QString getAudio() const;
     void setAudio(const QString &value);
     QStringList getTranslations() const;
     void setTranslations(const QStringList &value);
+    void appendTranslation(const QString &value);
 };
 
 #endif // WORD_H

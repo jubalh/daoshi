@@ -31,6 +31,11 @@ void Word::setExampleSentences(const QStringList &value)
     exampleSentences = value;
 }
 
+void Word::appendExampleSentence(const QString &value)
+{
+   this->exampleSentences.append(value);
+}
+
 QString Word::getNote() const
 {
     return note;
@@ -60,6 +65,11 @@ QStringList Word::getTranslations() const
 void Word::setTranslations(const QStringList &value)
 {
     translations = value;
+}
+
+void Word::appendTranslation(const QString &value)
+{
+   this->translations.append(value);
 }
 
 Word::Word()
