@@ -33,7 +33,8 @@ HEADERS  += mainwindow.h \
     opendialog.h \
     lessonloader.h \
     helper.h \
-    lesson.h
+    lesson.h \
+    version.h
 
 FORMS    += mainwindow.ui \
     opendialog.ui

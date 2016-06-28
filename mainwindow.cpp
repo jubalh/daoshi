@@ -1,15 +1,15 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "opendialog.h"
-#include "ui_opendialog.h"
-#include "helper.h"
 #include <Qt>
 #include <QTime>
 #include <QMovie>
 #include <QMessageBox>
 #include <QSettings>
 #include <QDebug>
-
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include "opendialog.h"
+#include "ui_opendialog.h"
+#include "helper.h"
+#include "version.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -237,7 +237,7 @@ void MainWindow::saveSettings()
 
 void MainWindow::on_actionAbout_triggered()
 {
-   QMessageBox::about(this, "About", "<b>Daoshi</b><br><br>Daoshi is a vocabulary trainer targetting Chinese and other languages with foreign scripts.");
+   QMessageBox::about(this, "About", "<b>Daoshi</b> " VERSION "<br><br>Daoshi is a vocabulary trainer targetting Chinese and other languages with foreign scripts.");
 }
 
 void MainWindow::on_btnSpeaker_clicked()
