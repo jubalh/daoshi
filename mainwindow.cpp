@@ -10,6 +10,7 @@
 #include <QSettings>
 #include <QDebug>
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -21,7 +22,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QPixmap disp;
     disp.load(":/images/resources/folder-color.svg");
-    //disp = disp.scaled(this->ui->pushButton->size());
 
     this->ui->pushButton->setFlat(true);
     this->ui->pushButton->setText("");
@@ -107,35 +107,31 @@ void MainWindow::onLessonLoaded(Lesson lesson)
    this->setGeometry(position);
    setting.endGroup();
 
-   this->displayRandomWord();
+   this->chooseRandomWord();
 }
 
-void MainWindow::displayWord(Word word)
+void MainWindow::displayWord()
 {
-   this->ui->tbTransliteration->setVisible(false);
-   this->ui->tbTranslation->setVisible(false);
-   this->ui->tbNote->setVisible(false);
-   this->ui->tbExample->setVisible(false);
+   // clear
+   current_displayed_widget = VisibleWidget::transliteration;
+   this->ui->lblPictogram->clear();
+   this->ui->tbTransliteration->clear();
+   this->ui->tbTranslation->clear();
+   this->ui->tbNote->clear();
+   this->ui->tbExample->clear();
 
-   this->ui->lblPictogram->setText(word.getPictogram());
-   this->ui->tbTransliteration->setText(word.getPinyin());
-   this->ui->tbNote->setText(word.getNote());
+   // get new word
+   Word word = mLesson.wordList().at(mCurrentWordIndex);
 
-//   this->ui->tbTranslation->setText(word.getTranslation());
+   wordparts = {
+      {VisibleWidget::transliteration, {word.getPinyin(), ui->tbTransliteration}},
+      {VisibleWidget::translation, {Helper::stringListToHtml(word.getTranslations()),ui->tbTranslation}},
+      {VisibleWidget::note, {word.getNote(), ui->tbNote}},
+      {VisibleWidget::example, {Helper::stringListToHtml(word.getExampleSentences()), ui->tbExample}}
+   };
 
-   this->ui->tbTranslation->setHtml(  Helper::stringListToHtml(word.getTranslations()) );
-   this->ui->tbExample->setHtml(  Helper::stringListToHtml(word.getExampleSentences()) );
-
+   // set pictogram
    QString pth = this->getPictogramPath(word.getPictogram());
-
-   /*
-   QPixmap disp;
-   if (disp.load(pth))
-   {
-       this->ui->lblPictogram->setPixmap(disp);
-       this->ui->lblPictogram->setGeometry(0,0,disp.width(), disp.height());
-   }
-   */
 
    QSize s(130,130);
    QMovie *movie = new QMovie(pth);
@@ -143,6 +139,7 @@ void MainWindow::displayWord(Word word)
    this->ui->lblPictogram->setMovie(movie);
    movie->start();
 
+   // set audio
    QString audio = word.getAudio();
    if (audio.isEmpty())
    {
@@ -158,11 +155,10 @@ void MainWindow::displayWord(Word word)
    }
 }
 
-void MainWindow::displayRandomWord()
+void MainWindow::chooseRandomWord()
 {
-   Word word = this->mLesson.wordList().at(qrand() % this->mLesson.wordList().count());
-   //Word word = this->mLesson.wordList().at(0);
-   this->displayWord(word);
+   mCurrentWordIndex = qrand() % mLesson.wordList().count();
+   this->displayWord();
 }
 
 void MainWindow::on_actionExit_triggered()
@@ -178,7 +174,7 @@ QString MainWindow::getPictogramPath(QString pictogram)
 
 void MainWindow::on_btnNextWord_clicked()
 {
-    this->displayRandomWord();
+    this->chooseRandomWord();
     if(this->mPlayer.state() == QMediaPlayer::PlayingState)
         this->mPlayer.stop();
 }
@@ -208,37 +204,24 @@ void MainWindow::on_actionClose_Lesson_triggered()
     this->toggleLessonMode(false);
 }
 
-bool MainWindow::makeVisible(QWidget *widget)
-{
-    // already visible, skip this on
-    if(widget->isVisible())
-        return true;
-
-    // wdget is empty, skip this one
-    if(QString::compare(widget->metaObject()->className(), "QLabel") == 0)
-    {
-        QLabel* lbl = (QLabel*)widget;
-        if(lbl->text().isEmpty())
-            return true;
-    } else if(QString::compare(widget->metaObject()->className(), "QTextBrowser") == 0)
-    {
-        QTextBrowser* te = (QTextBrowser*)widget;
-        if (te->toPlainText().isEmpty())
-            return true;
-    }
-
-    // set visible
-    widget->setVisible(true);
-    return false;
-}
-
 void MainWindow::on_btnNextDisplay_clicked()
 {
-    // test which widget is visible and make the next one visible
-    if(makeVisible(this->ui->tbTransliteration))
-        if(makeVisible(this->ui->tbTranslation))
-            if(makeVisible(this->ui->tbNote))
-                makeVisible(this->ui->tbExample);
+   Word word = mLesson.wordList().at(mCurrentWordIndex);
+
+   forever {
+      auto it = wordparts.find(current_displayed_widget);
+      if (it == wordparts.end())
+         break;
+
+      const WordUi &word = it->second;
+
+      current_displayed_widget = (VisibleWidget)((int)current_displayed_widget + 1);
+
+      if (!word.value.isEmpty()) {
+         word.ui->setHtml(word.value);
+         break;
+      }
+   }
 }
 
 void MainWindow::saveSettings()

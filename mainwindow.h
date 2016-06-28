@@ -11,6 +11,9 @@ namespace Ui {
 class MainWindow;
 }
 
+class QTextBrowser;
+enum class VisibleWidget : short { transliteration, translation, note, example, LAST };
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -32,16 +35,22 @@ private slots:
     void on_btnSpeaker_clicked();
 
 private:
+    struct WordUi {
+       QString value;
+       QTextBrowser *ui;
+    };
+    std::map<VisibleWidget, WordUi> wordparts;
     Lesson mLesson;
+    int mCurrentWordIndex;
     QMediaPlayer mPlayer;
     Ui::MainWindow *ui;
     void runOpenLessonDialog(void);
     QString getPictogramPath(QString pictogram);
-    void displayWord(Word word);
-    void displayRandomWord();
+    void displayWord();
+    void chooseRandomWord();
     void toggleLessonMode(bool bMakeLessonActive);
-    bool makeVisible(QWidget *widget);
     void saveSettings();
+    VisibleWidget current_displayed_widget;
 };
 
 #endif // MAINWINDOW_H
