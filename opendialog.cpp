@@ -29,9 +29,6 @@ OpenDialog::OpenDialog(QWidget *parent) :
     {
         ui->listWidget->addItems(lessons);
 
-        mLessonLoader = new LessonLoader(this);
-        connect(mLessonLoader, SIGNAL(loaded(Lesson)), this->parent(), SLOT(onLessonLoaded(Lesson)));
-
         this->ui->listWidget->setCurrentRow(0);
     }
 }
@@ -47,7 +44,12 @@ void OpenDialog::on_buttonBox_accepted()
     {
         QString name = this->ui->listWidget->selectedItems().at(0)->text();
         qDebug() <<  name;
-        mLessonLoader->setLessonName(name);
-        mLessonLoader->start();
+        LessonLoader lessonLoader;
+        loaded_lesson = lessonLoader.loadLesson(name);
     }
+}
+
+Lesson OpenDialog::loadedLesson() const
+{
+   return loaded_lesson;
 }

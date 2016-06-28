@@ -69,8 +69,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::runOpenLessonDialog()
 {
-    OpenDialog *od = new OpenDialog(this);
-    od->exec();
+    OpenDialog od;
+    if (od.exec() == QDialog::Accepted)
+    {
+       onLessonLoaded(od.loadedLesson());
+    }
 }
 
 void MainWindow::on_actionOpen_Lesson_triggered()

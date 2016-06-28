@@ -47,6 +47,8 @@ public:
          currentWord.appendExampleSentence(current_text.top());
       else  if (current_elements.top() == "note")
          currentWord.setNote(current_text.top());
+      else  if (current_elements.top() == "audio")
+         currentWord.setAudio(current_text.top());
       else if (current_elements.top() == "version")
          lesson.setVersion(current_text.top());
       else  if (current_elements.top() == "word")
@@ -64,41 +66,9 @@ private:
    QStack<QString> current_text;
 };
 
-LessonLoader::LessonLoader(QObject *parent) :
-    QThread(parent)
+bool LessonLoader::checkLessonStructure(QString name) const
 {
-}
-
-void LessonLoader::setLessonName(QString name)
-{
-    this->mLessonName = name;
-}
-
-void LessonLoader::run()
-{
-    Lesson result;
-
-    qDebug() << "lesson name:" << this->mLessonName;
-    bool bValidLesson = this->checkLessonStructure();
-
-    if (bValidLesson)
-    {
-        result = this->loadLesson();
-        result.setName(this->mLessonName);
-    }
-    else
-    {
-       QString msg = "Structure of lesson is not valid";
-       qDebug() << msg;
-       result.setError(msg);
-    }
-
-    emit loaded(result);
-}
-
-bool LessonLoader::checkLessonStructure()
-{
-    QString lessonPath = Helper::getLessonsDirectory() + "/" + this->mLessonName;
+    QString lessonPath = Helper::getLessonsDirectory() + "/" + name;
 
     //check lesson path
     QDir lessonDir(lessonPath);
@@ -106,7 +76,7 @@ bool LessonLoader::checkLessonStructure()
         return false;
 
     //check for content file
-    QFile lesson(Helper::getContentFilePath(this->mLessonName));
+    QFile lesson(Helper::getContentFilePath(name));
     if(!lesson.exists())
         return false;
     lesson.open(QIODevice::ReadOnly);
@@ -140,9 +110,24 @@ bool LessonLoader::checkLessonStructure()
     return true;
 }
 
-Lesson LessonLoader::loadLesson()
+Lesson LessonLoader::loadLesson(QString name) const
 {
-    QFile lessonFile(Helper::getContentFilePath(this->mLessonName));
+    Lesson retLesson;
+
+    qDebug() << "lesson name:" << name;
+    bool bValidLesson = this->checkLessonStructure(name);
+
+    if (!bValidLesson)
+    {
+       QString msg = "Structure of lesson is not valid";
+       qDebug() << msg;
+       retLesson.setError(msg);
+       return retLesson;
+    }
+
+    retLesson.setName(name);
+
+    QFile lessonFile(Helper::getContentFilePath(name));
     if (!lessonFile.open(QIODevice::ReadOnly))
     {
         "Failed to open " + lessonFile.fileName();
@@ -150,7 +135,6 @@ Lesson LessonLoader::loadLesson()
     }
 
     QXmlInputSource *source = new QXmlInputSource(&lessonFile);
-    Lesson retLesson;
     LessonXMLHandler handler(retLesson);
     QXmlSimpleReader reader;
     reader.setContentHandler(&handler);
