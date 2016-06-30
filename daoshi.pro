@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     opendialog.cpp \
     lessonloader.cpp \
     helper.cpp \
-    lesson.cpp
+    lesson.cpp \
+    checkonline.cpp
 
 HEADERS  += mainwindow.h \
     word.h \
@@ -34,7 +35,8 @@ HEADERS  += mainwindow.h \
     lessonloader.h \
     helper.h \
     lesson.h \
-    version.h
+    version.h \
+    checkonline.h
 
 FORMS    += mainwindow.ui \
     opendialog.ui

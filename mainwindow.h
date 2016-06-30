@@ -1,11 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "word.h"
-#include "lesson.h"
 #include <QMainWindow>
 #include <QList>
 #include <QMediaPlayer>
+#include "word.h"
+#include "lesson.h"
+#include "checkonline.h"
 
 namespace Ui {
 class MainWindow;
@@ -31,8 +32,9 @@ private slots:
     void on_actionClose_Lesson_triggered();
     void on_btnNextDisplay_clicked();
     void on_actionAbout_triggered();
-
     void on_btnSpeaker_clicked();
+    void on_actionCheckForUpdates_triggered();
+    void on_ucCheckedLatestVersion(QString vresion);
 
 private:
     struct WordUi {
@@ -51,6 +53,7 @@ private:
     void toggleLessonMode(bool bMakeLessonActive);
     void saveSettings();
     VisibleWidget current_displayed_widget;
+    CheckOnline *updateChecker;
 };
 
 #endif // MAINWINDOW_H

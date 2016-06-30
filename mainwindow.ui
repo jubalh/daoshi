@@ -422,6 +422,7 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionCheckForUpdates"/>
     <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
@@ -446,6 +447,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionCheckForUpdates">
+   <property name="text">
+    <string>Check for updates</string>
    </property>
   </action>
  </widget>

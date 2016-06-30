@@ -60,6 +60,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QTime now = QTime::currentTime();
     qsrand(now.msec());
+
+    updateChecker = new CheckOnline(this);
 }
 
 MainWindow::~MainWindow()
@@ -243,4 +245,15 @@ void MainWindow::on_actionAbout_triggered()
 void MainWindow::on_btnSpeaker_clicked()
 {
    this->mPlayer.play();
+}
+
+void MainWindow::on_ucCheckedLatestVersion(QString version)
+{
+   QMessageBox::information(this, "Check for udpates" , "You run version " VERSION " and the latest one available is " + version);
+}
+
+void MainWindow::on_actionCheckForUpdates_triggered()
+{
+   updateChecker->updateAvailable();
+   connect(updateChecker, &CheckOnline::checkedLatestVersion, this, &MainWindow::on_ucCheckedLatestVersion);
 }
