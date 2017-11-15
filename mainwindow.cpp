@@ -254,6 +254,12 @@ void MainWindow::on_ucCheckedLatestVersion(QString version)
 
 void MainWindow::on_actionCheckForUpdates_triggered()
 {
-   updateChecker->updateAvailable();
    connect(updateChecker, &CheckOnline::checkedLatestVersion, this, &MainWindow::on_ucCheckedLatestVersion);
+   updateChecker->updateAvailable();
+}
+
+void MainWindow::on_actionDownloadLessons_triggered()
+{
+   //TODO: connect signal to a slot that displays available lessons
+   updateChecker->getAvailableOnlineLessons();
 }

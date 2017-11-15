@@ -24,7 +24,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="pgOpenLesson">
        <widget class="QWidget" name="layoutWidget">
@@ -416,6 +416,7 @@ p, li { white-space: pre-wrap; }
     </property>
     <addaction name="actionOpen_Lesson"/>
     <addaction name="actionClose_Lesson"/>
+    <addaction name="actionDownloadLessons"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -452,6 +453,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionCheckForUpdates">
    <property name="text">
     <string>Check for updates</string>
+   </property>
+  </action>
+  <action name="actionDownloadLessons">
+   <property name="text">
+    <string>Download lessons</string>
    </property>
   </action>
  </widget>

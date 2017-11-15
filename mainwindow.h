@@ -34,6 +34,7 @@ private slots:
     void on_actionAbout_triggered();
     void on_btnSpeaker_clicked();
     void on_actionCheckForUpdates_triggered();
+    void on_actionDownloadLessons_triggered();
     void on_ucCheckedLatestVersion(QString vresion);
 
 private:

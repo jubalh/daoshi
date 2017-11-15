@@ -3,6 +3,7 @@
 
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QXmlQuery>
 
 class CheckOnline : public QObject
 {
@@ -10,12 +11,15 @@ class CheckOnline : public QObject
 public:
    CheckOnline(QObject *parent);
    bool updateAvailable();
-   QStringList getLessonsList();
+   bool getAvailableOnlineLessons();
 signals:
     void checkedLatestVersion(QString version);
 private slots:
    void httpFinished(QNetworkReply * reply);
 private:
+   bool retrieveFromUrl(QString urlString);
+   void httpFinished_LatestVersion(QXmlQuery &query);
+   void httpFinished_AvailableOnlineLessons(QXmlQuery &query);
    QNetworkAccessManager qnam;
    QString latest_version_online;
 };
