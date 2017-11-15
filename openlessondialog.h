@@ -9,13 +9,13 @@ namespace Ui {
 class OpenDialog;
 }
 
-class OpenDialog : public QDialog
+class OpenLessonDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit OpenDialog(QWidget *parent = 0);
-    ~OpenDialog();
+    explicit OpenLessonDialog(QWidget *parent = 0);
+    ~OpenLessonDialog();
     Lesson loadedLesson() const;
 
 private slots:

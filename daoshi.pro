@@ -23,20 +23,20 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     word.cpp \
-    opendialog.cpp \
     lessonloader.cpp \
     helper.cpp \
     lesson.cpp \
-    checkonline.cpp
+    checkonline.cpp \
+    openlessondialog.cpp
 
 HEADERS  += mainwindow.h \
     word.h \
-    opendialog.h \
     lessonloader.h \
     helper.h \
     lesson.h \
     version.h \
-    checkonline.h
+    checkonline.h \
+    openlessondialog.h
 
 FORMS    += mainwindow.ui \
     opendialog.ui

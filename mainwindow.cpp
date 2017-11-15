@@ -6,7 +6,7 @@
 #include <QDebug>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "opendialog.h"
+#include "openlessondialog.h"
 #include "ui_opendialog.h"
 #include "helper.h"
 #include "version.h"
@@ -71,7 +71,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::runOpenLessonDialog()
 {
-    OpenDialog od;
+    OpenLessonDialog od;
     if (od.exec() == QDialog::Accepted)
     {
        onLessonLoaded(od.loadedLesson());

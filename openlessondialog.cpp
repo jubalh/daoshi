@@ -1,4 +1,4 @@
-#include "opendialog.h"
+#include "openlessondialog.h"
 #include "ui_opendialog.h"
 #include "helper.h"
 #include "lesson.h"
@@ -6,7 +6,7 @@
 #include <QTextEdit>
 #include <QDebug>
 
-OpenDialog::OpenDialog(QWidget *parent) :
+OpenLessonDialog::OpenLessonDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::OpenDialog)
 {
@@ -33,12 +33,12 @@ OpenDialog::OpenDialog(QWidget *parent) :
     }
 }
 
-OpenDialog::~OpenDialog()
+OpenLessonDialog::~OpenLessonDialog()
 {
     delete ui;
 }
 
-void OpenDialog::on_buttonBox_accepted()
+void OpenLessonDialog::on_buttonBox_accepted()
 {
     if (this->ui->listWidget->selectedItems().count() > 0)
     {
@@ -49,7 +49,7 @@ void OpenDialog::on_buttonBox_accepted()
     }
 }
 
-Lesson OpenDialog::loadedLesson() const
+Lesson OpenLessonDialog::loadedLesson() const
 {
    return loaded_lesson;
 }
