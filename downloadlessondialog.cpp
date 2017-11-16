@@ -7,10 +7,7 @@ DownloadLessonDialog::DownloadLessonDialog(QWidget *parent) :
 {
    ui->setupUi(this);
 
-   model = new QStringListModel(this);
-   QStringList list;
-   list << "cat" << "dog" << "bird";
-   model->setStringList(list);
+   model = new AvailableLessonsModel();
    ui->tableView->setModel(model);
 }
 
