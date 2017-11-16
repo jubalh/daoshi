@@ -2,6 +2,7 @@
 #define DOWNLOADLESSONDIALOG_H
 
 #include <QDialog>
+#include <QStringListModel>
 
 namespace Ui {
 class DownloadLessonDialog;
@@ -17,6 +18,7 @@ public:
 
 private:
    Ui::DownloadLessonDialog *ui;
+   QStringListModel *model;
 };
 
 #endif // DOWNLOADLESSONDIALOG_H
