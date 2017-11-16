@@ -7,6 +7,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "openlessondialog.h"
+#include "downloadlessondialog.h"
 #include "ui_opendialog.h"
 #include "helper.h"
 #include "version.h"
@@ -262,4 +263,10 @@ void MainWindow::on_actionDownloadLessons_triggered()
 {
    //TODO: connect signal to a slot that displays available lessons
    updateChecker->getAvailableOnlineLessons();
+
+   DownloadLessonDialog dd;
+   if (dd.exec() == QDialog::Accepted)
+   {
+      qDebug() << "Accepted";
+   }
 }

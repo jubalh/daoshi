@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     helper.cpp \
     lesson.cpp \
     checkonline.cpp \
-    openlessondialog.cpp
+    openlessondialog.cpp \
+    downloadlessondialog.cpp
 
 HEADERS  += mainwindow.h \
     word.h \
@@ -36,10 +37,12 @@ HEADERS  += mainwindow.h \
     lesson.h \
     version.h \
     checkonline.h \
-    openlessondialog.h
+    openlessondialog.h \
+    downloadlessondialog.h
 
 FORMS    += mainwindow.ui \
-    opendialog.ui
+    opendialog.ui \
+    downloadlessondialog.ui
 
 RESOURCES += \
     main.qrc
