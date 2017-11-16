@@ -14,6 +14,7 @@ public:
    bool getAvailableOnlineLessons();
 signals:
     void checkedLatestVersion(QString version);
+    void receivedAvailLessonsList(QString text);
 private slots:
    void httpFinished(QNetworkReply * reply);
 private:

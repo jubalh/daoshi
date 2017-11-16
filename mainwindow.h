@@ -35,7 +35,8 @@ private slots:
     void on_btnSpeaker_clicked();
     void on_actionCheckForUpdates_triggered();
     void on_actionDownloadLessons_triggered();
-    void on_ucCheckedLatestVersion(QString vresion);
+    void on_ucCheckedLatestVersion(QString version);
+    void on_ucReceivedAvailLessons(QString text);
 
 private:
     struct WordUi {

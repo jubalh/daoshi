@@ -248,22 +248,26 @@ void MainWindow::on_btnSpeaker_clicked()
    this->mPlayer.play();
 }
 
-void MainWindow::on_ucCheckedLatestVersion(QString version)
-{
-   QMessageBox::information(this, "Check for udpates" , "You run version " VERSION " and the latest one available is " + version);
-}
-
 void MainWindow::on_actionCheckForUpdates_triggered()
 {
    connect(updateChecker, &CheckOnline::checkedLatestVersion, this, &MainWindow::on_ucCheckedLatestVersion);
    updateChecker->updateAvailable();
 }
 
+void MainWindow::on_ucCheckedLatestVersion(QString version)
+{
+   QMessageBox::information(this, "Check for udpates" , "You run version " VERSION " and the latest one available is " + version);
+}
+
 void MainWindow::on_actionDownloadLessons_triggered()
 {
-   //TODO: connect signal to a slot that displays available lessons
+   connect(updateChecker, &CheckOnline::receivedAvailLessonsList, this, &MainWindow::on_ucReceivedAvailLessons);
    updateChecker->getAvailableOnlineLessons();
+}
 
+void MainWindow::on_ucReceivedAvailLessons(QString text)
+{
+   qDebug() << "got text:" << text;
    DownloadLessonDialog dd;
    if (dd.exec() == QDialog::Accepted)
    {

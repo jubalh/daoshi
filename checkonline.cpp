@@ -84,5 +84,5 @@ void CheckOnline::httpFinished_AvailableOnlineLessons(QXmlQuery &query)
    query.evaluateTo(&out);
    qDebug() << out.trimmed();
 
-   //TODO: emmit signal containing available lessons
+   emit receivedAvailLessonsList(out);
 }
