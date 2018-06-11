@@ -20,33 +20,33 @@ TARGET = daoshi
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    word.cpp \
-    lessonloader.cpp \
-    helper.cpp \
-    lesson.cpp \
-    checkonline.cpp \
-    openlessondialog.cpp \
-    downloadlessondialog.cpp \
-    availablelessonsmodel.cpp \
-    onlinelesson.cpp
+SOURCES += src/main.cpp\
+        src/mainwindow.cpp \
+    src/word.cpp \
+    src/lessonloader.cpp \
+    src/helper.cpp \
+    src/lesson.cpp \
+    src/checkonline.cpp \
+    src/openlessondialog.cpp \
+    src/downloadlessondialog.cpp \
+    src/availablelessonsmodel.cpp \
+    src/onlinelesson.cpp
 
-HEADERS  += mainwindow.h \
-    word.h \
-    lessonloader.h \
-    helper.h \
-    lesson.h \
-    version.h \
-    checkonline.h \
-    openlessondialog.h \
-    downloadlessondialog.h \
-    availablelessonsmodel.h \
-    onlinelesson.h
+HEADERS  += src/mainwindow.h \
+    src/word.h \
+    src/lessonloader.h \
+    src/helper.h \
+    src/lesson.h \
+    src/version.h \
+    src/checkonline.h \
+    src/openlessondialog.h \
+    src/downloadlessondialog.h \
+    src/availablelessonsmodel.h \
+    src/onlinelesson.h
 
-FORMS    += mainwindow.ui \
-    opendialog.ui \
-    downloadlessondialog.ui
+FORMS    += src/mainwindow.ui \
+    src/opendialog.ui \
+    src/downloadlessondialog.ui
 
 RESOURCES += \
     main.qrc
