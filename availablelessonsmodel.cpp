@@ -1,27 +1,35 @@
 #include "availablelessonsmodel.h"
 
-AvailableLessonsModel::AvailableLessonsModel()
+AvailableLessonsModel::AvailableLessonsModel(QList<OnlineLesson> lessons)
 {
-   list << "name" << "something";
+   this->list = lessons;
 }
 
 int AvailableLessonsModel::rowCount(const QModelIndex &parent) const
 {
    Q_UNUSED(parent)
-   return 1;
+   return list.size();
 }
 
 int AvailableLessonsModel::columnCount(const QModelIndex &parent) const
 {
    Q_UNUSED(parent)
-   return list.length();
+   return 3;
 }
 
 QVariant AvailableLessonsModel::data(const QModelIndex &index, int role) const
 {
-   if (role == Qt::DisplayRole) {
-      QString s = list.at(index.column());
-      return QVariant(s);
+   if (role == Qt::DisplayRole && list.size() > index.row()) {
+      switch (index.column()) {
+      case 0:
+         return QVariant(list.at(index.row()).getName());
+      case 1:
+         return QVariant(list.at(index.row()).getLanguage());
+      case 2:
+         return QVariant(list.at(index.row()).getVersion());
+      default:
+         return QVariant();
+      }
    } else {
       return QVariant();
    }
@@ -30,12 +38,17 @@ QVariant AvailableLessonsModel::data(const QModelIndex &index, int role) const
 QVariant AvailableLessonsModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
    if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
-      if (section == 0) {
-         return QVariant("n");
-      } else if (section == 1) {
-         return QVariant("s");
+      switch (section) {
+      case 0:
+         return QVariant("Name");
+      case 1:
+         return QVariant("Language");
+      case 2:
+         return QVariant("Version");
+      default:
+         return QVariant();
       }
    } else {
-      return QVariant();
+     return QVariant();
    }
 }

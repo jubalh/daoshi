@@ -268,7 +268,17 @@ void MainWindow::on_actionDownloadLessons_triggered()
 void MainWindow::on_ucReceivedAvailLessons(QString text)
 {
    qDebug() << "got text:" << text;
+
+   //TODO: here pass onlinelessons to dd
+   OnlineLesson l1("lesson 1", 1, "german", "http://github.com/jubalh/daoshi", "arch", "german lesson", 1);
+   OnlineLesson l2("lesson 2", 1, "english", "http://github.com/jubalh/daoshi", "arch", "english lesson", 1);
+
+   QList<OnlineLesson> lessons;
+   lessons.append(l1);
+   lessons.append(l2);
+
    DownloadLessonDialog dd;
+   dd.setLessons(lessons);
    if (dd.exec() == QDialog::Accepted)
    {
       qDebug() << "Accepted";

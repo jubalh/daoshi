@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     checkonline.cpp \
     openlessondialog.cpp \
     downloadlessondialog.cpp \
-    availablelessonsmodel.cpp
+    availablelessonsmodel.cpp \
+    onlinelesson.cpp
 
 HEADERS  += mainwindow.h \
     word.h \
@@ -40,7 +41,8 @@ HEADERS  += mainwindow.h \
     checkonline.h \
     openlessondialog.h \
     downloadlessondialog.h \
-    availablelessonsmodel.h
+    availablelessonsmodel.h \
+    onlinelesson.h
 
 FORMS    += mainwindow.ui \
     opendialog.ui \
